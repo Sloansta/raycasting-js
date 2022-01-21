@@ -11,12 +11,13 @@ const TICK = 30;
 const CELL_SIZE = 64;
 const PLAYER_SIZE = 10;
 const FOV = defineRadiants(60);
+let debugMode = false;
 
 const COLORS = {
-    floor: "#d52b1e", 
-    ceiling: "#ffffff",
-    wall: "#013aa6",
-    wallDark: "#012975",
+    floor: "#99FF99", 
+    ceiling: "black",
+    wall: "#FF9999",
+    wallDark: "#99CCFF",
     rays: "#ffa600"
 };
 
@@ -27,6 +28,19 @@ const map = [
     [1, 0, 0, 0, 0, 0, 1],
     [1, 0, 1, 0, 1, 0, 1],
     [1, 0, 1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1],
+    [1, 1, 0, 1, 0, 0, 1],
+    [1, 0, 0, 1, 0, 1, 1],
+    [1, 0, 0, 0, 0, 1, 1],
+    [1, 1, 1, 0, 0, 1, 1],
+    [1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1],
+    [1, 1, 1, 0, 1, 0, 1],
+    [1, 0, 1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1, 0, 1],
+    [1, 1, 0, 1, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 1],
     [1, 1, 1, 1, 1, 1, 1]
 ];
 
@@ -216,7 +230,8 @@ function gameLoop() {
     movePlayer();
     const rays = getRays();
     renderScene(rays);
-    renderMinimap(0, 0, 0.75, rays);
+    if(debugMode)
+        renderMinimap(0, 0, 0.75, rays);
 }
 
 setInterval(gameLoop, TICK);
