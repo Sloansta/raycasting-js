@@ -11,7 +11,7 @@ const TICK = 30;
 const CELL_SIZE = 64;
 const PLAYER_SIZE = 10;
 const FOV = defineRadiants(60);
-let debugMode = false;
+let debugMode = true;
 
 const COLORS = {
     floor: "#99FF99", 
@@ -22,26 +22,25 @@ const COLORS = {
 };
 
 const map = [
-    [1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 1, 0, 1, 1],
-    [1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 1, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1],
-    [1, 1, 0, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0, 1, 1],
-    [1, 0, 0, 0, 0, 1, 1],
-    [1, 1, 1, 0, 0, 1, 1],
-    [1, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 1, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1],
-    [1, 1, 1, 0, 1, 0, 1],
-    [1, 0, 1, 0, 0, 0, 1],
-    [1, 0, 0, 0, 1, 0, 1],
-    [1, 1, 0, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0, 0, 1],
-    [1, 1, 1, 1, 1, 1, 1]
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1],
+    [1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1],
+    [1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ];
 
 const player = {
@@ -159,7 +158,7 @@ function getRays() {
         const angle = initialAngle + i * angleStep;
         const ray = castRay(angle);
         return ray;
-    })
+    });
 }
 
 function compensateFishEye(distance, angle, playerAngle) {
@@ -179,7 +178,7 @@ function renderScene(rays) {
         context.fillRect(i, SCREEN_HEIGHT / 2 + wallHeight / 2, 1, SCREEN_HEIGHT / 2 - wallHeight / 2);
         context.fillStyle = COLORS.ceiling;
         context.fillRect(i, 0, 1, SCREEN_HEIGHT / 2 - wallHeight / 2);
-    })
+    });
 }
 
 function renderMinimap(posX = 0, posY = 0, scale = 1, rays) {
@@ -243,11 +242,11 @@ function defineRadiants(deg) {
 document.addEventListener("keydown", (e) => {
     switch (e.key) {
         case "w":
-                player.speed = 2;
+                player.speed = 5;
             break;
     
         case "s":
-            player.speed = -2;
+            player.speed = -5;
             break;
     }
 });
